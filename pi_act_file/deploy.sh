@@ -32,10 +32,14 @@ echo "🔍 변경된 파일:"
 git status -s
 echo ""
 
-# 📝 커밋 메시지 받기
-read -p "📝 커밋 메시지를 입력하세요 (비워두면 '자동 커밋'): " user_message
-if [ -z "$user_message" ]; then
-    user_message="자동 커밋"
+# 📝 커밋 메시지 받기 (Python에서 전달받거나 fallback)
+if [ -z "$COMMIT_MSG" ]; then
+    read -p "📝 커밋 메시지를 입력하세요 (비워두면 '자동 커밋'): " user_message
+    if [ -z "$user_message" ]; then
+        user_message="자동 커밋"
+    fi
+else
+    user_message="$COMMIT_MSG"
 fi
 
 # 📦 최종 커밋 메시지
